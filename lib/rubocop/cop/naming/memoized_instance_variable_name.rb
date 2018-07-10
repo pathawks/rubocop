@@ -116,6 +116,9 @@ module RuboCop
           variable = ivar_assign.children.first
           variable_name = variable.to_s.sub('@', '')
 
+          if variable_name.start_with?('_') && variable_name == method_name
+            return true
+          end
           return false unless valid_leading_underscore?(variable_name)
 
           variable_name.sub(/\A_/, '') == method_name
